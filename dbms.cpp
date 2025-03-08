@@ -163,10 +163,10 @@ int main() {
         Table* departments = db.getTable("departments");
 
         // Insert some data into employees table
-        InsertQueryHandler insertEmployeeQuery(employees, {{"id", "1"}, {"name", "Alice"}, {"department", "HR"}});
+        InsertQueryHandler insertEmployeeQuery(employees, {{"id", "1"}, {"name", "Garvit"}, {"department", "HR"}});
         db.executeQuery(&insertEmployeeQuery);
 
-        InsertQueryHandler insertEmployeeQuery2(employees, {{"id", "2"}, {"name", "Bob"}, {"department", "IT"}});
+        InsertQueryHandler insertEmployeeQuery2(employees, {{"id", "2"}, {"name", "Ashish"}, {"department", "IT"}});
         db.executeQuery(&insertEmployeeQuery2);
 
         // Insert some data into departments table
@@ -181,7 +181,7 @@ int main() {
         db.executeQuery(&selectEmployeeQuery);
 
         // Update a row in employees table
-        UpdateQueryHandler updateEmployeeQuery(employees, 0, {{"id", "1"}, {"name", "Alice Updated"}, {"department", "HR"}});
+        UpdateQueryHandler updateEmployeeQuery(employees, 0, {{"id", "1"}, {"name", "Garvit Updated"}, {"department", "HR"}});
         db.executeQuery(&updateEmployeeQuery);
 
         // Delete a row from employees table
