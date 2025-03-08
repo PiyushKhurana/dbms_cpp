@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-#include <sstream>
 #include <stdexcept>
 
 // Abstract class for database query handler
