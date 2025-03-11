@@ -14,13 +14,7 @@
 4. **CRUD Operations**:  
    - Insert, update, delete, and select operations are demonstrated using respective query handlers that are executed on the `Database` instance.
 
-5. **Extensibility**:  
-   - This design allows you to extend the functionality. For example, you can add indexing, foreign key constraints, and more advanced query parsing by creating more specific query handlers or table subclasses.
 
-### Further Improvements:
-- Implementing indexing for columns to optimize `SELECT` queries.
-- Adding support for foreign key constraints to enforce relationships between tables.
-- Parsing SQL-like queries to convert them into internal query handler objects.
 
 
 
@@ -51,46 +45,8 @@ More Description:
 
 ---
 
-### **1. Class Relationship Diagram**
 
-```
-+--------------------+       +-----------------+        +------------------------+
-|     Database       |<----->|     Table       |<----->|     Rows (Data)        |
-+--------------------+       +-----------------+        +------------------------+
-| - tables (map)     |       | - rows (vector) |        | - key-value pairs      |
-| + createTable()    |       | + insert()      |        |   (column: value)      |
-| + getTable()       |       | + update()      |        |                        |
-| + executeQuery()   |       | + deleteRow()   |        |                        |
-+--------------------+       +-----------------+        +------------------------+
-                                  |
-                                  |
-                                  V
-                            +--------------------+
-                            |   QueryHandler     |    <-- Abstract Base Class for Queries
-                            +--------------------+
-                            | + execute()        |
-                            +--------------------+
-                                  ^
-                                  |
-          +-----------------------+--------------------+
-          |                       |                    |
-+---------------------+  +--------------------+  +---------------------+
-| InsertQueryHandler  |  | UpdateQueryHandler |  | DeleteQueryHandler  |
-+---------------------+  +--------------------+  +---------------------+
-| + execute()         |  | + execute()        |  | + execute()         |
-| - insertData        |  | - updateData       |  | - deleteData        |
-+---------------------+  +--------------------+  +---------------------+
-                                  |
-                                  |
-                             +-------------------+
-                             | SelectQueryHandler |
-                             +-------------------+
-                             | + execute()       |
-                             | - selectData      |
-                             +-------------------+
-```
-
-### **Explanation of Diagram:**
+### **Explanation **
 
 - **Database**: Manages multiple `Table` instances. It has a map `tables`, which stores `Table` objects identified by their names. The `Database` class can create new tables and execute queries.
   
@@ -102,58 +58,6 @@ More Description:
 
 ---
 
-### **2. Process Flow Diagram for CRUD Operations**
-
-This diagram represents how the database processes a query through the system:
-
-```
-+----------------------------------+
-|      User Issues Query          | <------------------------------+|
-+----------------------------------+                                |
-                |                                                   |
-                V                                                   |
-+----------------------------------------+                          |
-|    Database Receives the Query        |                           |
-|  (Example: INSERT, UPDATE, SELECT)     |                          |
-+----------------------------------------+                          |
-                |                                                   |
-                V                                                   |
-+-----------------------------------+                               |
-|  Database Searches for Relevant   |                               |
-|         Table (from map)           |                              |
-+-----------------------------------+                               |
-                |                                                   |
-                V                                                   |
-+----------------------------+                                      |
-| QueryHandler Executes Query |                                     |
-+----------------------------+                                      |
-                |                                                   |
-                V                                                   |
-+-------------------------+                                         |
-|   QueryHandler Calls     |                                        |
-|   Specific Method        |                                         |
-|   (insert(), update(),   |                                        |
-|   deleteRow(), select()) |                                        |
-+-------------------------+                                         |
-                |                                                   |
-                V                                                   |
-+-----------------------------------+                               |
-|   Table Data is Manipulated      |                                |
-| (insert new row, update data,    |                                |
-|   delete row, or select data)    |                                |
-+-----------------------------------+                               |
-                |                                                   |
-                V                                                   |
-+----------------------------------+                                |
-|  Table Returns Result (Updated) |                                 |
-+----------------------------------+                                |
-                |                                                   |
-                V                                                   |
-+----------------------------------+                                |
-|    Database Returns Response    | --------------------------------+
-|   (Success/Error Message)       |
-+----------------------------------+
-```
 
 ### **Explanation of Process Flow:**
 
@@ -175,9 +79,7 @@ This diagram represents how the database processes a query through the system:
 
 ---
 
-### **Conclusion:**
 
-This flow diagram shows how the database receives, processes, and executes CRUD operations through its components. 
 
 ### Ouput
 
